@@ -165,9 +165,9 @@ function newSeatInvite(){try{return crypto.randomUUID?crypto.randomUUID():crypto
 function join(make,spectate=false,invite=''){
  let code=$('code').value.trim().replace(/[^\w]/g,'').toUpperCase();
  if(make)code=newCode();else if(!code){note("Type your friend's room code first, or press Create room to get one.");return}
- seatInvite=make?newSeatInvite():invite||'';$('code').value=code;$('rcode').textContent=code;$('roomBox').hidden=!make;
+ $('code').value=code;$('rcode').textContent=code;$('roomBox').hidden=!make;
  if(typeof Peer==='undefined'){note('Could not load the connection library. Check your internet and reload.');return}
- gameMode='online';clearTimeout(botTimer);botBusy=false;leave();resetReview();S=init();positionHistory=[S];sel=null;me='x';flipped=false;initClock(...cfgIn());render();note('Connecting...');
+ gameMode='online';clearTimeout(botTimer);botBusy=false;leave();seatInvite=make?newSeatInvite():invite||'';resetReview();S=init();positionHistory=[S];sel=null;me='x';flipped=false;initClock(...cfgIn());render();note('Connecting...');
  const id='chessonline-'+code.toLowerCase(),p=new Peer(id);peerObj=p;
  p.on('open',()=>hostMode(p,code));
  p.on('error',e=>{if(e.type=='unavailable-id'){p.destroy();guestMode(id,code,spectate,seatInvite)}else note('Connection problem: '+e.type)})}
