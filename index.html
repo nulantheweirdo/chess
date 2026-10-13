@@ -1,51 +1,33 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Chess Online</title>
+<title>Chess Online — Play Chess</title>
+<meta name="description" content="Play chess online, challenge the computer, or share a board with a friend.">
+<meta name="theme-color" content="#f1f3f5">
 <style>
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f4f1ea;--fg:#222;--l:#f0d9b5;--d:#b58863;--pn:#e4e0d4;--bd:#c9c4b5}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1e1f22;--fg:#eee;--pn:#2b2d31;--bd:#444}}
-:root[data-theme="dark"]{--bg:#1e1f22;--fg:#eee;--pn:#2b2d31;--bd:#444}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px system-ui,-apple-system,sans-serif}
-h1{font-size:1.4rem;margin:12px 0 4px;text-align:center}
-.wrap{display:flex;gap:16px;justify-content:center;align-items:flex-start;padding:8px}
-.main{--s:min(84vw,560px);width:var(--s)}
-.ctl{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
-.ctl input{flex:1;min-width:110px;padding:8px;border:1px solid var(--bd);border-radius:6px;background:transparent;color:inherit}
-button{padding:8px 10px;border:1px solid var(--bd);border-radius:6px;background:var(--pn);color:inherit;cursor:pointer}
-#board{display:grid;grid-template-columns:repeat(8,calc(var(--s)/8));grid-template-rows:repeat(8,calc(var(--s)/8));width:var(--s);height:var(--s);margin:16px 0;box-shadow:0 0 0 9px #5a3b22,0 0 0 11px #3a2514,0 12px 30px rgba(0,0,0,.45)}
-.sq{width:100%;height:100%;min-width:0;min-height:0;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;position:relative}
-.sq.l{background:var(--l)}.sq.d{background:var(--d)}
-.pc{width:88%;height:88%;pointer-events:none;filter:drop-shadow(0 2px 1.5px rgba(0,0,0,.4))}.lb{position:absolute;font:600 10px system-ui,sans-serif;pointer-events:none}.sq.l .lb{color:#b58863}.sq.d .lb{color:#f0d9b5}
-.sq.last{box-shadow:inset 0 0 0 100px rgba(246,246,105,.45)}
-.sq.sel{box-shadow:inset 0 0 0 100px rgba(246,246,105,.8)}
-.sq.tgt::after{content:"";width:28%;height:28%;border-radius:50%;background:rgba(0,0,0,.25);position:absolute}
-.sq.cap{box-shadow:inset 0 0 0 4px rgba(220,50,50,.8)}
-.clk{width:var(--s);box-sizing:border-box;padding:6px 12px;border-radius:6px;background:var(--pn);font:600 18px ui-monospace,Menlo,monospace;white-space:pre}.clk[hidden]{display:none}.clk.on{background:#4a8f3c;color:#fff}.clk.zero{background:#b33;color:#fff}
-select{padding:8px;border:1px solid var(--bd);border-radius:6px;background:var(--pn);color:inherit}.opt{font-size:14px;display:flex;align-items:center;gap:6px}
-.rb{width:var(--s);box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 12px;margin:6px 0;border-radius:8px;background:#fff3c4;color:#222;border:1px solid #e0c96a}.rb[hidden]{display:none}.rb b{font:700 26px ui-monospace,Menlo,monospace;letter-spacing:4px;margin-right:auto}.rb button{color:#222;background:#fff;border-color:#d4bb5a}
-#status{font-weight:600;margin:8px 0 2px;min-height:1.4em}#note{font-size:13px;opacity:.75;min-height:1.2em}
+:root{color-scheme:light;--page:#f1f3f5;--panel:#fff;--ink:#262522;--muted:#74716c;--line:#e5e2dc;--accent:#81b64c;--accent-dark:#68943b;--light:#eeeed2;--dark:#769656;--soft:#f7f6f2;--shadow:0 12px 35px rgba(33,36,28,.09);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+:root[data-theme=dark]{color-scheme:dark;--page:#17191c;--panel:#23262a;--ink:#f1f0ed;--muted:#a7a49d;--line:#383b40;--soft:#2d3035;--shadow:0 12px 35px rgba(0,0,0,.24);--light:#e4e7ca;--dark:#769656}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);min-height:100vh}button,input,select{font:inherit}button{border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:10px 13px;border-radius:9px;font-weight:650;cursor:pointer;transition:transform .12s,border-color .12s,background .12s}button:hover{border-color:#a8aa9f;background:var(--soft)}button:active{transform:translateY(1px)}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #81b64c66;outline-offset:2px}
+.topbar{max-width:1180px;margin:auto;padding:22px 24px 14px;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:12px}.brand-mark{height:42px;width:42px;border-radius:13px;background:var(--accent);color:white;display:grid;place-items:center;font-size:27px;box-shadow:0 5px 12px #81b64c44}.brand h1{font-size:20px;letter-spacing:-.03em;margin:0}.brand p{font-size:12px;margin:2px 0 0;color:var(--muted)}.top-actions{display:flex;gap:8px}.icon-btn{width:42px;height:42px;padding:0;font-size:18px}
+.wrap{max-width:1180px;margin:0 auto;padding:8px 24px 32px;display:grid;grid-template-columns:minmax(320px,min(66vh,620px)) minmax(300px,360px);gap:28px;justify-content:center;align-items:start}.main{min-width:0;width:100%;--s:min(100%,620px)}.side{display:flex;flex-direction:column;gap:14px}.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:17px}.card h2{font-size:15px;margin:0 0 13px;letter-spacing:-.01em}.mode-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;background:var(--soft);padding:4px;border-radius:10px;margin-bottom:14px}.mode-tabs button{background:transparent;border:0;padding:9px 6px;font-size:13px;color:var(--muted)}.mode-tabs button.active{background:var(--panel);color:var(--ink);box-shadow:0 1px 4px #00000012}.form-row{display:flex;gap:8px}.field{min-width:0;display:flex;flex-direction:column;gap:6px;flex:1}.field label,.opt{font-size:12px;color:var(--muted);font-weight:650}.field input,.field select,.ctl input,.ctl select{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px 11px;background:var(--panel);color:var(--ink)}.range-wrap{display:grid;grid-template-columns:1fr 72px;align-items:center;gap:12px}.range-wrap input{accent-color:var(--accent);padding:0}.elo-value{font-weight:750;text-align:right;font-variant-numeric:tabular-nums}.subtle{font-size:12px;line-height:1.45;color:var(--muted);margin:8px 0 0}.primary{background:var(--accent);border-color:var(--accent);color:#fff}.primary:hover{background:var(--accent-dark);border-color:var(--accent-dark)}.full{width:100%;margin-top:13px}.divider{border:0;border-top:1px solid var(--line);margin:15px 0}.ctl{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 10px}.ctl button{font-size:12px;padding:8px 10px}.room-controls[hidden],.rb[hidden]{display:none}.rb{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 12px;margin:0 0 10px;border-radius:9px;background:#fff3c4;color:#222;border:1px solid #e0c96a}.rb b{font:700 20px ui-monospace,Menlo,monospace;letter-spacing:3px;margin-right:auto}.rb button{font-size:12px;padding:7px 9px;color:#222;background:#fff;border-color:#d4bb5a}
+.board-shell{padding:9px;background:#493425;border-radius:13px;box-shadow:0 13px 30px #0002}.board-topline{display:flex;align-items:center;justify-content:space-between;padding:4px 2px 9px;color:#fff;font-size:13px;font-weight:650}.player-label{display:flex;align-items:center;gap:8px}.avatar{height:28px;width:28px;border-radius:8px;display:grid;place-items:center;background:#ffffff22;font-size:17px}.clk{min-width:86px;text-align:center;box-sizing:border-box;padding:7px 10px;border-radius:7px;background:#ffffff24;color:#fff;font:700 18px ui-monospace,Menlo,monospace;white-space:pre;font-variant-numeric:tabular-nums}.clk[hidden]{display:none}.clk.on{background:#dff1c9;color:#28371f}.clk.zero{background:#b33;color:#fff}#board{display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(8,1fr);width:100%;aspect-ratio:1;margin:0;overflow:hidden;border-radius:3px}.sq{width:100%;height:100%;min-width:0;min-height:0;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;position:relative;touch-action:manipulation}.sq.l{background:var(--light)}.sq.d{background:var(--dark)}.pc{width:90%;height:90%;pointer-events:none;filter:drop-shadow(0 2px 1.5px rgba(0,0,0,.32))}.lb{position:absolute;font:700 clamp(8px,1.3vw,11px) system-ui,sans-serif;pointer-events:none}.sq.l .lb{color:#769656}.sq.d .lb{color:#eeeed2}.sq.last{box-shadow:inset 0 0 0 100px rgba(246,246,105,.40)}.sq.sel{box-shadow:inset 0 0 0 100px rgba(246,246,105,.72)}.sq.tgt::after{content:"";width:27%;height:27%;border-radius:50%;background:rgba(0,0,0,.23);position:absolute}.sq.cap::after{content:"";position:absolute;inset:4%;border:4px solid rgba(0,0,0,.23);border-radius:50%}.sq:focus-visible{outline:3px solid #70a83b;outline-offset:-3px;z-index:2}.board-bottomline{display:flex;align-items:center;justify-content:space-between;padding:9px 2px 3px;color:#fff;font-size:13px;font-weight:650}.board-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px}.board-footer button{padding:8px 10px;font-size:12px}.turn-indicator{color:var(--muted);font-size:12px}.status-card{padding:14px 16px}.status-head{display:flex;align-items:center;gap:9px}.status-dot{height:9px;width:9px;border-radius:50%;background:var(--accent)}#status{font-weight:700;font-size:14px;min-height:1.3em}#note{font-size:12px;color:var(--muted);line-height:1.5;margin-top:5px;min-height:1.2em}.move-list{height:166px;overflow:auto;border:1px solid var(--line);border-radius:9px;background:var(--soft);padding:7px 9px;font:13px ui-monospace,Menlo,monospace}.move-row{display:grid;grid-template-columns:30px 1fr 1fr;gap:6px;padding:5px 3px;border-bottom:1px solid var(--line)}.move-row:last-child{border:0}.move-no{color:var(--muted)}.move-current{background:#81b64c2a;border-radius:4px}.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.optline{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)}.toggle{accent-color:var(--accent)}.hidden{display:none!important}
+@media(max-width:820px){.wrap{grid-template-columns:minmax(0,620px);gap:16px;padding:4px 16px 24px}.side{display:grid;grid-template-columns:1fr 1fr;align-items:start}.side .setup-card{grid-column:1/-1}.topbar{padding:16px 16px 10px}.main{--s:min(100%,620px)}}
+@media(max-width:520px){.topbar{padding:13px 12px 8px}.wrap{padding:4px 10px 20px;gap:12px}.brand h1{font-size:17px}.brand p{font-size:11px}.brand-mark{height:37px;width:37px}.card{padding:13px;border-radius:12px}.side{grid-template-columns:1fr}.side .setup-card{grid-column:auto}.board-shell{padding:6px;border-radius:10px}.clk{font-size:16px;min-width:75px}.board-topline,.board-bottomline{font-size:12px}.board-footer{gap:4px}.board-footer button{padding:8px 6px;font-size:11px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style></head><body>
-<h1>♞ Chess Online</h1>
-<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="gw" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fffdf7"/><stop offset="1" stop-color="#cfc8b4"/></linearGradient><linearGradient id="gb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6e6e6e"/><stop offset="1" stop-color="#1a1a1a"/></linearGradient></defs></svg>
+<header class="topbar"><div class="brand"><div class="brand-mark">♞</div><div><h1>Chess Online</h1><p>Play a friend or challenge the computer</p></div></div><div class="top-actions"><button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme" onclick="toggleTheme()">◐</button></div></header>
 <div class="wrap">
-<div class="main">
- <div class="ctl">
-  <input id="code" placeholder="Friend's room code" maxlength="24">
-  <button onclick="join(true)">Create room</button><button onclick="join()">Join room</button><button onclick="localGame()">Local 2-player</button>
-  <button onclick="newGame()">New game</button>
- </div>
- <div id="roomBox" class="rb" hidden><span>Room code:</span><b id="rcode"></b><button onclick="copyCode()">Copy code</button><button onclick="copyLink()">Copy invite link</button></div>
- <div class="ctl"><label class="opt">Clock <select id="tm"><option value="0">None</option><option value="1">1 min</option><option value="3">3 min</option><option value="5">5 min</option><option value="10">10 min</option><option value="15">15 min</option><option value="30">30 min</option></select></label>
-  <label class="opt">Increment <select id="ic"><option value="0">+0 s</option><option value="1">+1 s</option><option value="2">+2 s</option><option value="3">+3 s</option><option value="5">+5 s</option><option value="10">+10 s</option></select></label>
-  <span class="opt" style="opacity:.7">Set by the room host. Press New game to apply.</span></div>
- <div id="ctop" class="clk" hidden></div>
- <div id="board"></div>
- <div id="cbot" class="clk" hidden></div>
- <div id="status"></div><div id="note">Press Create room to get a code to send to your friend, or type their code and press Join room. The first person in a room plays White, the second plays Black.</div>
-</div>
-</div>
+ <main class="main"><section class="board-shell" aria-label="Chess board"><div class="board-topline"><span class="player-label"><span class="avatar" id="topAvatar">♟</span><span id="topName">Black</span></span><div id="ctop" class="clk" hidden></div></div><div id="board" role="grid" aria-label="Chess board"></div><div class="board-bottomline"><span class="player-label"><span class="avatar" id="bottomAvatar">♙</span><span id="bottomName">White</span></span><div id="cbot" class="clk" hidden></div></div></section>
+  <div class="board-footer"><span class="turn-indicator" id="turnInfo">White to move</span><div><button onclick="undoMove()" title="Undo last move">↶ Undo</button> <button onclick="flipBoard()" title="Flip board">⇅ Flip board</button> <button onclick="newGame()">＋ New game</button></div></div></main>
+ <aside class="side"><section class="card setup-card"><h2>Start a game</h2><div class="mode-tabs" role="tablist"><button id="tabBot" class="active" onclick="setSetupMode('bot')">Computer</button><button id="tabOnline" onclick="setSetupMode('online')">Friend online</button><button id="tabLocal" onclick="setSetupMode('local')">Local</button></div>
+  <div id="botSetup"><div class="form-row"><div class="field"><label for="botSide">Play as</label><select id="botSide"><option value="w">White</option><option value="b">Black</option></select></div><div class="field"><label for="elo">Estimated strength</label><div class="range-wrap"><input id="elo" type="range" min="100" max="2000" step="100" value="1000" oninput="showElo()"><span class="elo-value" id="eloLabel">1000 Elo</span></div></div></div><p class="subtle">Approximate Elo-style setting; higher ratings search more deeply.</p></div>
+  <div id="onlineSetup" class="hidden"><div class="form-row"><div class="field"><label for="code">Room code</label><input id="code" placeholder="Enter a friend's code" maxlength="24" autocomplete="off"></div></div><div class="form-row" style="margin-top:9px"><button class="primary" onclick="join(true)">Create room</button><button onclick="join()">Join room</button></div></div>
+  <div id="roomBox" class="rb" hidden><span>Room:</span><b id="rcode"></b><button onclick="copyCode()">Copy code</button><button onclick="copyLink()">Copy link</button></div><hr class="divider">
+  <div class="settings-grid"><div class="field"><label for="tm">Clock</label><select id="tm"><option value="0">No clock</option><option value="1">1 minute</option><option value="3">3 minutes</option><option value="5" selected>5 minutes</option><option value="10">10 minutes</option><option value="15">15 minutes</option><option value="30">30 minutes</option></select></div><div class="field"><label for="ic">Increment</label><select id="ic"><option value="0">+0 seconds</option><option value="1">+1 second</option><option value="2">+2 seconds</option><option value="3">+3 seconds</option><option value="5">+5 seconds</option><option value="10">+10 seconds</option></select></div></div><label class="optline" style="margin-top:12px"><input id="soundToggle" class="toggle" type="checkbox" checked> Move sounds</label>
+  <button class="primary full" id="startBtn" onclick="startBot()">Play computer</button><button class="full hidden" id="localStartBtn" onclick="localGame()">Start local game</button><p class="subtle" id="settingsHint">Choose your side, difficulty, and clock before starting.</p></section>
+  <section class="card status-card"><div class="status-head"><span class="status-dot" id="statusDot"></span><div id="status">White to move</div></div><div id="note">Set up a game to get started.</div></section><section class="card"><h2>Move history</h2><div class="move-list" id="moveList" aria-live="polite"></div></section>
+ </aside></div>
+<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="gw" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fffdf7"/><stop offset="1" stop-color="#cfc8b4"/></linearGradient><linearGradient id="gb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6e6e6e"/><stop offset="1" stop-color="#1a1a1a"/></linearGradient></defs></svg>
 <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
 <script>
 const B='<rect x="10" y="35" width="25" height="4.5" rx="2"/>';
@@ -97,47 +79,49 @@ function make(s,m){const b=s.b.slice(),p=b[m.f],col=p[0],cs={...s.cs};
 function legal(s){return pseudo(s,s.t).filter(m=>{const n=make(s,m);return!att(n.b,n.b.indexOf(s.t+'K'),n.t)})}
 function replay(mv){let s=init();for(const x of mv){if(!Array.isArray(x))break;const m=legal(s).find(m=>m.f==x[0]&&m.t==x[1]);if(!m)break;s=make(s,m)}return s}
 
-let S=init(),me='both',sel=null,net=null,peerObj=null,conns=[],peers=0,ended=false,timeout=null,guest=false;const clk={base:0,inc:0,w:0,b:0,stamp:0};
+let S=init(),me='both',sel=null,net=null,peerObj=null,conns=[],peers=0,ended=false,timeout=null,guest=false,gameMode='local',setupMode='bot',playerSide='w',botBusy=false,botTimer=null,flipped=false,positionHistory=[];const clk={base:0,inc:0,w:0,b:0,stamp:0};
 const $=id=>document.getElementById(id);
 function render(){
  const L=legal(S),en=S.t=='w'?'b':'w',chk=att(S.b,S.b.indexOf(S.t+'K'),en),last=S.mv[S.mv.length-1],el=$('board');
  el.innerHTML='';ended=!L.length;
- for(let v=0;v<64;v++){const i=me=='b'?63-v:v,r=i>>3,c=i&7,d=document.createElement('div'),p=S.b[i];
+ for(let v=0;v<64;v++){const i=(me=='b'||flipped)?63-v:v,r=i>>3,c=i&7,d=document.createElement('div'),p=S.b[i];
   d.className='sq '+((r+c)%2?'d':'l')+(sel===i?' sel':'')+(last&&(last[0]==i||last[1]==i)?' last':'');
   if(p)d.innerHTML=pcs(p);
   if(v%8==0)d.insertAdjacentHTML('beforeend','<span class="lb" style="left:3px;top:2px">'+(8-r)+'</span>');
   if(v>55)d.insertAdjacentHTML('beforeend','<span class="lb" style="right:3px;bottom:1px">'+'abcdefgh'[c]+'</span>');
   if(sel!==null&&L.some(m=>m.f==sel&&m.t==i))d.classList.add(p?'cap':'tgt');
-  d.onclick=()=>click(i);el.appendChild(d)}
+  d.setAttribute('role','gridcell');d.setAttribute('aria-label',squareName(i)+(p?' '+pieceName(p):''));d.tabIndex=0;d.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();click(i)}};d.onclick=()=>click(i);el.appendChild(d)}
  const name=S.t=='w'?'White':'Black';let t;
  if(timeout)t=(timeout=='w'?'White':'Black')+' ran out of time. '+(timeout=='w'?'Black':'White')+' wins.';
  else if(!L.length)t=chk?'Checkmate! '+(S.t=='w'?'Black':'White')+' wins.':'Stalemate \u2013 draw.';
  else t=name+' to move'+(chk?' (check!)':'');
  if(L.length&&!timeout&&me!='both'&&me!='x')t+=me==S.t?' \u2013 your turn':' \u2013 waiting for opponent';
- if(net)t+=' \u00B7 online'+(peers?' \u00B7 '+peers+' connected':'');
- $('status').textContent=t;updClocks()}
-function click(i){const L=legal(S);if(!L.length||timeout||!(me==S.t||me=='both'))return;
- if(sel!==null){const m=L.find(m=>m.f==sel&&m.t==i);if(m){const mc=S.t;S=make(S,m);tickMove(mc,S.mv.length);sel=null;net&&net.send({t:'move',moves:S.mv,clk:cl()});render();return}}
+ if(gameMode==='bot'&&L.length&&!timeout&&S.t!==playerSide)t='Computer is thinking…';
+ if(net)t+=' · online'+(peers?' · '+peers+' connected':'');
+ $('status').textContent=t;$('turnInfo').textContent=t;
+ const top=(me==='b'||flipped)?'White':'Black',bottom=top==='White'?'Black':'White';$('topName').textContent=top+(gameMode==='bot'&&(top==='Black'?'b':'w')!==playerSide?' · Computer':'');$('bottomName').textContent=bottom+(gameMode==='bot'&&(bottom==='Black'?'b':'w')!==playerSide?' · Computer':'');$('topAvatar').textContent=top==='White'?'♙':'♟';$('bottomAvatar').textContent=bottom==='White'?'♙':'♟';$('statusDot').style.background=timeout||!L.length?'#d26658':chk?'#e3a53e':'var(--accent)';updateMoveList();updClocks()}
+function click(i){const L=legal(S);if(!L.length||timeout||botBusy||gameMode=='bot'&&S.t!=playerSide||!(me==S.t||me=='both'))return;
+ if(sel!==null){const m=L.find(m=>m.f==sel&&m.t==i);if(m){const mc=S.t;S=make(S,m);tickMove(mc,S.mv.length);positionHistory.push(S);sel=null;playSound();net&&net.send({t:'move',moves:S.mv,clk:cl()});render();if(gameMode=='bot'&&S.t!=playerSide)scheduleBot();return}}
  sel=S.b[i]&&S.b[i][0]==S.t&&L.some(m=>m.f==i)?i:null;render()}
 const note=t=>$('note').textContent=t;
 const cfgIn=()=>[+$('tm').value,+$('ic').value];
 const cfg=()=>({base:clk.base,inc:clk.inc});
 function initClock(b,i){clk.base=b;clk.inc=i;clk.w=clk.b=b*60000;clk.stamp=Date.now();timeout=null}
 function applyClk(d){if(d.cfg){clk.base=d.cfg.base;clk.inc=d.cfg.inc}if(d.clk){clk.w=d.clk.w;clk.b=d.clk.b;clk.stamp=Date.now()}if('timeout' in d)timeout=d.timeout||null}
-const running=()=>clk.base&&S.mv.length>=2&&!timeout&&!ended;
+const running=()=>clk.base&&!timeout&&!ended;
 function rem(c){let v=clk[c];if(running()&&S.t==c)v-=Date.now()-clk.stamp;return Math.max(0,v)}
 const cl=()=>({w:Math.round(rem('w')),b:Math.round(rem('b'))});
-function tickMove(mc,len){if(!clk.base)return;const now=Date.now();if(len>2)clk[mc]-=now-clk.stamp;clk[mc]+=clk.inc*1000;clk.stamp=now}
+function tickMove(mc,len){if(!clk.base)return;const now=Date.now();clk[mc]-=now-clk.stamp;clk[mc]+=clk.inc*1000;clk.stamp=now}
 const fmt=ms=>{const s=Math.ceil(ms/1000);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
-function updClocks(){const on=!!clk.base,top=me=='b'?'w':'b',bot=top=='w'?'b':'w';
+function updClocks(){const on=!!clk.base,top=(me=='b'||flipped)?'w':'b',bot=top=='w'?'b':'w';
  for(const[id,c]of[['ctop',top],['cbot',bot]]){const e=$(id);e.hidden=!on;if(!on)continue;
   e.className='clk'+(running()&&S.t==c?' on':'')+(rem(c)<=0?' zero':'');
   e.textContent=(c=='w'?'White':'Black')+(c==me?' (you)':'')+'  '+fmt(rem(c))}}
 setInterval(()=>{if(running()&&rem(S.t)<=0){timeout=S.t;net&&net.send({t:'flag',loser:timeout});render()}updClocks()},250);
 function leave(){try{peerObj&&peerObj.destroy()}catch(e){}peerObj=null;net=null;conns=[];peers=0;guest=false}
-function localGame(){leave();$('roomBox').hidden=true;me='both';S=init();sel=null;initClock(...cfgIn());note('Local mode: two players share this screen.');render()}
-function newGame(){if(guest){net&&net.send({t:'reset'});return}
- S=init();sel=null;initClock(...cfgIn());net&&net.send({t:'reset',cfg:cfg()});render()}
+function localGame(){leave();clearTimeout(botTimer);botBusy=false;gameMode='local';$('roomBox').hidden=true;me='both';S=init();positionHistory=[S];sel=null;initClock(...cfgIn());note('Local game · White to move.');render()}
+function newGame(){if(gameMode==='bot'){startBot();return}if(guest){net&&net.send({t:'reset'});return}
+ S=init();positionHistory=[S];sel=null;initClock(...cfgIn());net&&net.send({t:'reset',cfg:cfg()});render()}
 function same(a,b){return a.every((x,i)=>b[i]&&b[i][0]==x[0]&&b[i][1]==x[1])}
 const newCode=()=>{const a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let c='';for(let i=0;i<5;i++)c+=a[Math.floor(Math.random()*a.length)];return c};
 function copyTxt(t,msg){const done=()=>note(msg);
@@ -149,7 +133,7 @@ function join(make){
  if(make)code=newCode();else if(!code){note("Type your friend's room code first, or press Create room to get one.");return}
  $('code').value=code;$('rcode').textContent=code;$('roomBox').hidden=false;
  if(typeof Peer==='undefined'){note('Could not load the connection library. Check your internet and reload.');return}
- leave();S=init();sel=null;me='x';initClock(...cfgIn());render();note('Connecting...');
+ gameMode='online';clearTimeout(botTimer);botBusy=false;leave();S=init();positionHistory=[S];sel=null;me='x';initClock(...cfgIn());render();note('Connecting...');
  const id='chessonline-'+code.toLowerCase(),p=new Peer(id);peerObj=p;
  p.on('open',()=>hostMode(p,code));
  p.on('error',e=>{if(e.type=='unavailable-id'){p.destroy();guestMode(id,code)}else note('Connection problem: '+e.type)})}
@@ -162,11 +146,11 @@ function hostMode(p,code){
   conns.push(c);peers=conns.length+1;
   c.on('open',()=>{c.send({t:'hello',you:col,moves:S.mv,cfg:cfg(),clk:cl(),timeout});render()});
   c.on('data',d=>{if(!d||typeof d!='object')return;
-   if(d.t=='reset'&&col!='x'){S=init();sel=null;initClock(clk.base,clk.inc);net.send({t:'reset',cfg:cfg()});render()}
+   if(d.t=='reset'&&col!='x'){S=init();positionHistory=[S];sel=null;initClock(clk.base,clk.inc);net.send({t:'reset',cfg:cfg()});render()}
    else if(d.t=='move'&&Array.isArray(d.moves)){
     const n=replay(d.moves);
     if(running()&&rem(S.t)<=0){timeout=S.t;net.send({t:'flag',loser:timeout})}
-    if(!timeout&&col!='x'&&S.t==col&&n.mv.length==S.mv.length+1&&same(S.mv,n.mv)){const mc=S.t;S=n;tickMove(mc,S.mv.length);sel=null;net.send({t:'move',moves:S.mv,clk:cl()});render()}
+    if(!timeout&&col!='x'&&S.t==col&&n.mv.length==S.mv.length+1&&same(S.mv,n.mv)){const mc=S.t;S=n;positionHistory.push(S);tickMove(mc,S.mv.length);sel=null;net.send({t:'move',moves:S.mv,clk:cl()});render()}
     else{c.send({t:'sync',moves:S.mv,cfg:cfg(),clk:cl(),timeout});render()}}});
   c.on('close',()=>{conns=conns.filter(x=>x!==c);if(black===c)black=null;peers=conns.length?conns.length+1:0;render()})})}
 function guestMode(id,code){
@@ -176,13 +160,33 @@ function guestMode(id,code){
   net={send:m=>c.open&&c.send(m)};
   c.on('open',()=>note('Connected to room "'+code+'".'));
   c.on('data',d=>{if(!d||typeof d!='object')return;
-   if(d.t=='hello'&&Array.isArray(d.moves)){me=d.you=='b'?'b':'x';S=replay(d.moves);applyClk(d);sel=null;peers=2;note((me=='b'?'Joined room "'+code+'" as Black.':'The room is full, so you are watching.')+(clk.base?' Clock: '+clk.base+' min + '+clk.inc+' s.':''))}
-   else if(d.t=='move'&&Array.isArray(d.moves)){const n=replay(d.moves);if(n.mv.length>=S.mv.length){S=n;sel=null;applyClk(d)}}
-   else if(d.t=='sync'&&Array.isArray(d.moves)){S=replay(d.moves);applyClk(d);sel=null}
+   if(d.t=='hello'&&Array.isArray(d.moves)){me=d.you=='b'?'b':'x';S=replay(d.moves);positionHistory=[S];applyClk(d);sel=null;peers=2;note((me=='b'?'Joined room "'+code+'" as Black.':'The room is full, so you are watching.')+(clk.base?' Clock: '+clk.base+' min + '+clk.inc+' s.':''))}
+   else if(d.t=='move'&&Array.isArray(d.moves)){const n=replay(d.moves);if(n.mv.length>=S.mv.length){S=n;positionHistory.push(S);sel=null;applyClk(d)}}
+   else if(d.t=='sync'&&Array.isArray(d.moves)){S=replay(d.moves);positionHistory=[S];applyClk(d);sel=null}
    else if(d.t=='flag'){timeout=d.loser=='w'||d.loser=='b'?d.loser:null}
-   else if(d.t=='reset'){S=init();sel=null;d.cfg?initClock(d.cfg.base,d.cfg.inc):initClock(clk.base,clk.inc)}
+   else if(d.t=='reset'){S=init();positionHistory=[S];sel=null;d.cfg?initClock(d.cfg.base,d.cfg.inc):initClock(clk.base,clk.inc)}
    render()});
   c.on('close',()=>{note('Disconnected from the host.');net=null;peers=0;render()})})}
+
+function showElo(){$('eloLabel').textContent=$('elo').value+' Elo'}
+function setSetupMode(mode){setupMode=mode;for(const m of ['bot','online','local'])$('tab'+m[0].toUpperCase()+m.slice(1)).classList.toggle('active',m===mode);$('botSetup').classList.toggle('hidden',mode!=='bot');$('onlineSetup').classList.toggle('hidden',mode!=='online');$('startBtn').classList.toggle('hidden',mode!=='bot');$('localStartBtn').classList.toggle('hidden',mode!=='local');$('settingsHint').textContent=mode==='bot'?'Choose your side, difficulty, and clock before starting.':mode==='online'?'Create a room and share its code, or join a friend.':'Play both sides on this device.'}
+function toggleTheme(){const dark=document.documentElement.dataset.theme!=='dark';document.documentElement.dataset.theme=dark?'dark':'light';try{localStorage.setItem('chess-theme',dark?'dark':'light')}catch(e){}}
+try{const savedTheme=localStorage.getItem('chess-theme');if(savedTheme)document.documentElement.dataset.theme=savedTheme}catch(e){}
+function squareName(i){return 'abcdefgh'[i&7]+(8-(i>>3))}
+function pieceName(p){return ({P:'pawn',N:'knight',B:'bishop',R:'rook',Q:'queen',K:'king'})[p[1]]+' '+(p[0]==='w'?'white':'black')}
+function flipBoard(){flipped=!flipped;render()}
+function updateMoveList(){const list=$('moveList');if(!list)return;list.innerHTML='';for(let i=0;i<S.mv.length;i+=2){const row=document.createElement('div');row.className='move-row';const no=document.createElement('span');no.className='move-no';no.textContent=(i/2+1)+'.';const w=document.createElement('span');w.textContent=moveLabel(i);const b=document.createElement('span');b.textContent=i+1<S.mv.length?moveLabel(i+1):'';if(i+2>=S.mv.length)b.classList.add('move-current');row.append(no,w,b);list.appendChild(row)}list.scrollTop=list.scrollHeight}
+function moveLabel(i){const m=S.mv[i];if(!m)return'';return squareName(m[0])+'–'+squareName(m[1])}
+function undoMove(){if(gameMode==='online'){note('Undo is available in computer and local games.');return}if(S.mv.length===0)return;clearTimeout(botTimer);botBusy=false;const remove=gameMode==='bot'&&S.mv.length>1?2:1;S=replay(S.mv.slice(0,Math.max(0,S.mv.length-remove)));positionHistory=[S];timeout=null;initClock(...cfgIn());sel=null;note('Last move undone.');render()}
+function startBot(){leave();clearTimeout(botTimer);botBusy=false;gameMode='bot';playerSide=$('botSide').value;me=playerSide;flipped=playerSide==='b';S=init();positionHistory=[S];sel=null;ended=false;initClock(...cfgIn());note('Computer game · '+$('elo').value+' Elo · You play '+(playerSide==='w'?'White':'Black')+'.');render();if(playerSide==='b')scheduleBot()}
+function scheduleBot(){clearTimeout(botTimer);if(gameMode!=='bot'||timeout||ended||S.t===playerSide)return;botBusy=true;render();botTimer=setTimeout(()=>{try{const m=chooseBotMove(S,+$('elo').value);if(m){const side=S.t;S=make(S,m);tickMove(side,S.mv.length);positionHistory.push(S);playSound();}botBusy=false;render();if(running()&&rem(S.t)<=0){timeout=S.t;render()}}catch(e){botBusy=false;note('The computer could not find a move. Please start a new game.');render()}},140)}
+function evaluate(s){let score=0;const val={P:100,N:320,B:335,R:500,Q:900,K:0};let nonPawns=0;for(const p of s.b)if(p&&p[1]!=='P'&&p[1]!=='K')nonPawns+=val[p[1]];const endgame=nonPawns<=2600;for(let i=0;i<64;i++){const p=s.b[i];if(!p)continue;const sign=p[0]==='w'?1:-1,type=p[1],r=p[0]==='w'?7-(i>>3):(i>>3),c=i&7,center=7-(Math.abs(3.5-(i&7))+Math.abs(3.5-(i>>3)));let bonus=0;if(type==='P')bonus=r*7+Math.max(0,3-Math.abs(3.5-c))*5;if(type==='N')bonus=center*9;if(type==='B')bonus=center*4;if(type==='Q')bonus=center*2;if(type==='K')bonus=endgame?center*7:-center*5;score+=sign*(val[type]+bonus)}return score}
+let searchNodes=0,searchDeadline=0,searchLimit=0;
+function searchPosition(s,depth,alpha,beta,ply){if(++searchNodes>=searchLimit||Date.now()>=searchDeadline)return evaluate(s);const moves=legal(s);if(!moves.length){const side=s.t,king=s.b.indexOf(side+'K'),check=att(s.b,king,side==='w'?'b':'w');return check?(side==='w'?-100000+ply:100000-ply):0}if(depth<=0)return evaluate(s);moves.sort((a,b)=>movePriority(s,b)-movePriority(s,a));if(s.t==='w'){let best=-Infinity;for(const m of moves){const score=searchPosition(make(s,m),depth-1,alpha,beta,ply+1);best=Math.max(best,score);alpha=Math.max(alpha,best);if(beta<=alpha||searchNodes>=searchLimit||Date.now()>=searchDeadline)break}return best}let best=Infinity;for(const m of moves){const score=searchPosition(make(s,m),depth-1,alpha,beta,ply+1);best=Math.min(best,score);beta=Math.min(beta,best);if(beta<=alpha||searchNodes>=searchLimit||Date.now()>=searchDeadline)break}return best}
+function movePriority(s,m){const victim=s.b[m.t]||(m.e?s.b[m.t+(s.t==='w'?8:-8)]:null),attacker=s.b[m.f];return(victim?10*({P:1,N:3,B:3,R:5,Q:9,K:10}[victim[1]])-({P:1,N:3,B:3,R:5,Q:9,K:10}[attacker[1]]):0)+(m.pm?8:0)+(m.ca?1:0)}
+function chooseBotMove(s,rating){const moves=legal(s);if(!moves.length)return null;moves.sort((a,b)=>movePriority(s,b)-movePriority(s,a));const depth=rating<500?1:rating<1200?2:rating<1800?3:4;searchNodes=0;searchLimit=Math.round(900+rating*1.8);searchDeadline=Date.now()+Math.round(350+rating*.45);const ranked=[];let alpha=-Infinity,beta=Infinity;for(const m of moves){const score=searchPosition(make(s,m),depth-1,alpha,beta,1);const noise=(2000-rating)*2.1;ranked.push({m,score:score+(Math.random()*2-1)*noise});if(s.t==='w')alpha=Math.max(alpha,score);else beta=Math.min(beta,score);if(searchNodes>=searchLimit||Date.now()>=searchDeadline)break}if(!ranked.length)return moves[Math.floor(Math.random()*moves.length)];ranked.sort((a,b)=>s.t==='w'?b.score-a.score:a.score-b.score);const pick=Math.min(ranked.length-1,Math.floor(Math.random()*(rating<400?Math.min(8,ranked.length):rating<900?Math.min(4,ranked.length):rating<1400?Math.min(2,ranked.length):1)));return ranked[pick].m}
+function playSound(){if(!$('soundToggle')?.checked)return;try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;const c=new AC(),o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.value=520;g.gain.setValueAtTime(.045,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.055);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.06);o.onended=()=>c.close()}catch(e){}}
+
 const q=new URLSearchParams(location.search).get('room');if(q){$('code').value=q;join()}
-render();
+render();setSetupMode(q?'online':'bot');showElo();
 </script></body></html>
