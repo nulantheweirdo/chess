@@ -188,7 +188,7 @@ function hostMode(p,code){
  p.on('connection',c=>{
   const requestedSpectator=!!c.metadata?.spectator,token=typeof c.metadata?.seat==='string'?c.metadata.seat:'',device=typeof c.metadata?.device==='string'?c.metadata.device:'',seatMatch=!requestedSpectator&&!!token&&token===blackToken,deviceMatch=!blackDeviceId||device===blackDeviceId,col=seatMatch&&deviceMatch&&(!black||!black.open)?'b':'x';if(col==='b'){blackDeviceId=device;blackPeerId=c.peer;black=c}
   conns.push(c);peers=conns.length+1;
-  c.on('open',()=>{if(col==='b'&&onlineActive&&onlinePaused)resumeOnline('Opponent reconnected. Clock resumed.');c.send({t:'hello',you:col,moves:S.mv,cfg:cfg(),clk:cl(),timeout,paused:onlinePaused,active:onlineActive,whiteReady,blackReady});render()});
+   c.on('open',()=>{if(col==='b'&&onlinePaused)resumeOnline('Opponent reconnected. Clock resumed.');c.send({t:'hello',you:col,moves:S.mv,cfg:cfg(),clk:cl(),timeout,paused:onlinePaused,active:onlineActive,whiteReady,blackReady});render()});
   c.on('data',d=>{if(generation!==roomGeneration||!d||typeof d!=='object')return;
     if(d.t==='reset'&&col==='b'&&!onlinePaused){resetReview();S=init();positionHistory=[S];sel=null;initClock(clk.base,clk.inc);whiteReady=false;blackReady=false;onlineActive=false;onlinePaused=false;net.send({t:'reset',cfg:cfg(),clk:cl(),whiteReady,blackReady});render();return}
     if(d.t==='ready'&&col==='b'&&!onlineActive){blackReady=!!d.ready;broadcastReady();startIfReady();render();return}
