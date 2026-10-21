@@ -4,7 +4,7 @@ A responsive, single-page chess game. Play locally, invite a friend to an online
 
 ## Features
 
-- Computer opponent with adjustable Elo-style strength setting from 100 to 2000
+- Stockfish 19 Lite computer opponent with an adjustable 100–2000 strength target and longer search times at higher settings
 - Local two-player and online room play
 - Optional clocks with configurable increments; online clocks start when both players connect and pause during a 20-second reconnect window
 - Premoves against the computer and in online rooms
@@ -17,3 +17,7 @@ A responsive, single-page chess game. Play locally, invite a friend to an online
 - Minimal move-by-move review with original PNG badges for brilliant, great, best, excellent, good, inaccuracy, mistake, and blunder ratings
 
 Open index.html in a browser to play. Online rooms use PeerJS and require an internet connection.
+
+## Stockfish engine
+
+The browser bot uses the Stockfish.js 19.0.1 Lite single-threaded WebAssembly build from [nmrugg/stockfish.js](https://github.com/nmrugg/stockfish.js/releases/tag/v19.0.1). The engine is licensed under GPL-3.0; its license is included at `assets/stockfish/Copying.txt`. The corresponding source is available in the [Stockfish.js v19.0.1 release](https://github.com/nmrugg/stockfish.js/tree/v19.0.1).
