@@ -4,7 +4,7 @@ A responsive, single-page chess game. Play locally, invite a friend to an online
 
 ## Features
 
-- Stockfish 19 Lite computer opponent with an adjustable 100–2000 strength target and longer search times at higher settings
+- Stockfish 19 Lite computer opponent with an approximate 100–2000 strength slider, deliberate weaker play below Stockfish's 1320 Elo limit, and longer searches at higher settings
 - Local two-player and online room play
 - Optional clocks with configurable increments; online clocks start when both players connect and pause during a 20-second reconnect window
 - Multi-move premove queues, including conditional recaptures, against the computer and in online rooms
